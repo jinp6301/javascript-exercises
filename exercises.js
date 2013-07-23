@@ -65,4 +65,39 @@ var curry = function(callback, length) {
 }
 
 var curriedSum = curry(sum, 4);
-console.log(curriedSum(5)(30)(20)(1));
+// console.log(curriedSum(5)(30)(20)(1));
+
+Function.prototype.inherits = function(obj) {
+  function Surrogate() {}
+  Surrogate.prototype = obj.prototype;
+  this.prototype = new Surrogate();
+}
+
+function Animal(name) {
+  this.name = name;
+}
+
+Animal.prototype.eat = function() {
+  console.log("nom nom nom");
+}
+
+function Cat(name) {
+  Animal.call(this, name);
+  this.speak = function(){
+    console.log("meow");
+  };
+}
+
+Cat.inherits(Animal);
+
+var newCat = new Cat('mrcat');
+
+console.log(newCat.name);
+newCat.speak();
+newCat.eat();
+
+
+
+
+
+
